@@ -4,9 +4,9 @@ This is a simple script used to watch and compile .tex files into pdfs on Unix s
 
 To set up, run:
 ```bash
-* `git clone https://github.com/gavinbarrett/LatexWatcher`
-* `cd LatexWatcher`
-* `chmod +x latexw.sh`
+git clone https://github.com/gavinbarrett/LatexWatcher
+cd LatexWatcher
+chmod +x latexw.sh
 ```
 
 You will need to have **Latex** and **pdflatex** installed on your computer.
