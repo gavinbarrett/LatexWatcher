@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # compute the initial hash of the file
 init_hash=$(sha256sum $1)
