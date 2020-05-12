@@ -1,29 +1,55 @@
 #!/usr/bin/env bash
 
-# compute the initial hash of the file
-init_hash=$(sha256sum $1)
-
-compile_error() {
-	echo "Error compiling $1"
+compile() {
+	result=$(pdflatex -file-line-error -interaction=nonstopmode -halt-on-error $1 | grep -E '.tex:[0-9]+:')
 }
 
-check_diff() {
-	init_hash=$1
-	file=$2
+try_compile() {
+	# run compile command
+	compile $1
+	# report any compilation errors
+	if [ -z "$result" ]; then
+		ret=0
+	else
+		printf "Error occurred:\n$result\n"
+		ret=1
+	fi
+}
+
+watch_tex() {
+	file=$1
+	texhash=$(sha256sum $file)
 	while true; do
-		#echo "Init hash: $init_hash"
-		new_hash=$(sha256sum $2)
-		#echo "New hash: $new_hash"
+		# compute a new hash
+		newhash=$(sha256sum $file)
 		# if file has been updated
-		if [ "$init_hash" != "$new_hash" ]; then
-			echo "Recompiling $file"
-			# compile the file and send stdout to /dev/null
-			pdflatex -halt-on-error $2 || compile_error $2
+		if [ "$texhash" != "$newhash" ]; then
+			# attempt to compile the file
+			try_compile $file
+			if [ $ret -eq 0 ]; then
+				printf "$file recompiled.\n"
+			fi
 			# set init_hash to new_hash
-			init_hash=$new_hash
+			texhash=$newhash
 		fi
 		sleep 4
 	done
 }
 
-check_diff $init_hash $1
+main() {
+	file=$1
+	tex='tex'
+	ext=$(printf $file | cut -d '.' -f2)
+	# run compilation command on .tex files
+	if [ $tex = $ext ]; then
+		try_compile $file
+		printf "$file compiled!\nWatching $file for changes...\nUse ^C to quit.\n"
+		watch_tex $file
+	else
+		printf "Please provide a .tex file.\n"
+		exit 1
+	fi
+}
+
+# run latexw
+main $1
