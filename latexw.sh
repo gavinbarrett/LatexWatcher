@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
 compile() {
+	# try to compile and save any errors
 	result=$(pdflatex -file-line-error -interaction=nonstopmode -halt-on-error $1 | grep -E '.tex:[0-9]+:')
 }
 
-try_compile() {
+compile_tex() {
 	# run compile command
 	compile $1
-	# report any compilation errors
 	if [ -z "$result" ]; then
 		ret=0
 	else
+		# report any compilation errors
 		printf "Error occurred:\n$result\n"
 		ret=1
 	fi
@@ -18,32 +19,36 @@ try_compile() {
 
 watch_tex() {
 	file=$1
+	# save initial file hash
 	texhash=$(sha256sum $file)
+	# watch .tex file until ctrl+c
 	while true; do
 		# compute a new hash
 		newhash=$(sha256sum $file)
-		# if file has been updated
+		# check for hash change
 		if [ "$texhash" != "$newhash" ]; then
 			# attempt to compile the file
-			try_compile $file
+			compile_tex $file
 			if [ $ret -eq 0 ]; then
 				printf "$file recompiled.\n"
 			fi
-			# set init_hash to new_hash
+			# update the file hash
 			texhash=$newhash
 		fi
-		sleep 4
+		sleep 3
 	done
 }
 
 main() {
 	file=$1
 	tex='tex'
+	# extract input file extension
 	ext=$(printf $file | cut -d '.' -f2)
-	# run compilation command on .tex files
+	# run compilation command on .tex file
 	if [ $tex = $ext ]; then
-		try_compile $file
+		compile_tex $file
 		printf "$file compiled!\nWatching $file for changes...\nUse ^C to quit.\n"
+		# watch for changes in the .tex file
 		watch_tex $file
 	else
 		printf "Please provide a .tex file.\n"
