@@ -1,0 +1,6 @@
+- Merge latexw with tex_torpedo, notably to check for .tex extension
+
+- On error, read from /dev/null to get EOF and terminate compilation
+
+- Redirect stdout/stderr either to files or to /dev/null
+
