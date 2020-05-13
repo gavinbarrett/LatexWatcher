@@ -40,6 +40,7 @@ watch_tex() {
 			# update the file hash
 			texhash=$newhash
 		fi
+		# wait for 2 seconds
 		sleep 2
 	done
 }
@@ -58,10 +59,11 @@ main() {
 			# watch for changes in the .tex file
 			watch_tex $file
 	else
+		# exit texwatch
 		printf "Please provide a .tex file.\n"
 		exit 1
 	fi
 }
 
-# run latexw
+# run texwatch
 main $1
