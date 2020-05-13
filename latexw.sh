@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+timestamp() {
+	time=$(date | grep -oe '[0-9][0-9]:[0-9][0-9]:[0-9][0-9][[:blank:]]PM')
+	printf "$time"
+}
+
 compile() {
 	# try to compile and save any errors
 	result=$(pdflatex -file-line-error -interaction=nonstopmode -halt-on-error $1 | grep -E '.tex:[0-9]+:')
@@ -12,7 +17,7 @@ compile_tex() {
 		ret=0
 	else
 		# report any compilation errors
-		printf "Error occurred:\n$result\n"
+		printf "\nError occurred:\n$result\n"
 		ret=1
 	fi
 }
@@ -30,12 +35,12 @@ watch_tex() {
 			# attempt to compile the file
 			compile_tex $file
 			if [ $ret -eq 0 ]; then
-				printf "$file recompiled.\n"
+				printf "\n$file recompiled at $(timestamp).\n"
 			fi
 			# update the file hash
 			texhash=$newhash
 		fi
-		sleep 3
+		sleep 2
 	done
 }
 
@@ -47,9 +52,11 @@ main() {
 	# run compilation command on .tex file
 	if [ $tex = $ext ]; then
 		compile_tex $file
-		printf "$file compiled!\nWatching $file for changes...\nUse ^C to quit.\n"
-		# watch for changes in the .tex file
-		watch_tex $file
+		if [ $ret -eq 0 ]; then
+			printf "$file compiled at $(timestamp).\nWatching $file for changes...\nUse ^C to quit.\n"
+		fi
+			# watch for changes in the .tex file
+			watch_tex $file
 	else
 		printf "Please provide a .tex file.\n"
 		exit 1
