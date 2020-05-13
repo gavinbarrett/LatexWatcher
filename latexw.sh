@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 timestamp() {
-	time=$(date | grep -oe '[0-9][0-9]:[0-9][0-9]:[0-9][0-9][[:blank:]]PM')
+	time=$(date | grep -oe '[0-9][0-9]:[0-9][0-9]:[0-9][0-9][[:blank:]][AP]M')
 	printf "$time"
 }
 
