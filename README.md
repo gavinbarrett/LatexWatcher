@@ -28,12 +28,11 @@ To download TeXWatch, run:
 ```bash
 git clone https://github.com/gavinbarrett/TeXWatch
 cd TeXWatch
-chmod +x texwatch
 ```
 
 Then add texwatch to a directory in your path.
 
-`cp texwatch ~/.local/bin`
+`sudo cp texwatch /usr/local/bin/`
 
 ### **Usage**
 
