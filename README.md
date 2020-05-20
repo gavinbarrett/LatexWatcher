@@ -6,7 +6,7 @@ This is a simple script used to watch and compile .tex files into pdfs on Unix s
 
 It is best to have a full TeX distribution on your system. In particular, you should be able to run the **pdflatex** command.
 
-To install on the following Linux distributions:
+<u>To install LaTeX on the following Linux distributions:</u>
 
 Ubuntu/Debian/Mint: 
 
