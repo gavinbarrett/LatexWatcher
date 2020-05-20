@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 timestamp() {
+	# print the current time
 	time=$(date | grep -oe '[0-9][0-9]:[0-9][0-9]:[0-9][0-9][[:blank:]][AP]M')
 	printf "$time"
 }
@@ -45,7 +46,7 @@ watch_tex() {
 	done
 }
 
-main() {
+texwatch_main() {
 	file=$1
 	tex='tex'
 	# extract input file extension
@@ -66,4 +67,4 @@ main() {
 }
 
 # run texwatch
-main $1
+texwatch_main $1

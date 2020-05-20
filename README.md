@@ -28,11 +28,13 @@ To download TeXWatch, run:
 ```bash
 git clone https://github.com/gavinbarrett/LatexWatcher
 cd LatexWatcher
-chmod +x texwatch.sh
+chmod +x texwatch
 ```
 
-Then add texwatch.sh to your path.
+Then add texwatch to your path.
+`cp texwatch ~/.local/bin`
 
 ### **Usage**
 
-Then you can run `texwatch {file}.tex` to watch and compile file.tex. Output will be written to {file}.pdf.
+Then you can run `texwatch {file}.tex` to watch and compile file.tex.
+Output will be written to `{file}.pdf`.
