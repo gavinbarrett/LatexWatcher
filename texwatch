@@ -46,6 +46,12 @@ watch_tex() {
 	done
 }
 
+exit_tw() {
+	# exit texwatch
+	printf "Please provide a .tex file.\n"
+	exit 1
+}
+
 texwatch_main() {
 	file=$1
 	tex='tex'
@@ -60,11 +66,13 @@ texwatch_main() {
 			# watch for changes in the .tex file
 			watch_tex $file
 	else
-		# exit texwatch
-		printf "Please provide a .tex file.\n"
-		exit 1
+		exit_tw
 	fi
 }
 
-# run texwatch
-texwatch_main $1
+if [ "$#" -eq 0 ]; then
+	exit_tw
+else
+	# run texwatch
+	texwatch_main $1
+fi
