@@ -31,7 +31,8 @@ cd TeXWatch
 chmod +x texwatch
 ```
 
-Then add texwatch to your path.
+Then add texwatch to a directory in your path.
+
 `cp texwatch ~/.local/bin`
 
 ### **Usage**
