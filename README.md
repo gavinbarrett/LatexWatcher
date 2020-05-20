@@ -1,5 +1,3 @@
-## TeXWatch
-
 <p align="center">
 <img src="logo/TeXWatchLogo.png" width="550">
 </p>
