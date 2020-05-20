@@ -26,8 +26,8 @@ Arch/Manjaro:
 
 To download TeXWatch, run:
 ```bash
-git clone https://github.com/gavinbarrett/TeXWatcher
-cd TeXWatcher
+git clone https://github.com/gavinbarrett/TeXWatch
+cd TeXWatch
 chmod +x texwatch
 ```
 
