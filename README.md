@@ -1,5 +1,9 @@
 ## TeXWatch
 
+<p align="center">
+<img src="./TeXWatchLogoMed.png" width="550">
+</p>
+
 This is a simple script used to watch and compile .tex files into pdfs on Unix systems.
 
 ### **Requirements**
