@@ -4,6 +4,8 @@
 
 This is a simple script used to watch and compile .tex files into pdfs on Unix systems.
 
+I found myself frustrated by constantly having to save .tex files _and_ recompile them. So I wrote this script with the aim of increasing workflow by automatically recompiling your .tex files for you. It is best used alongside a pdf viewer such as Evince or Okular that will watch for changes in the pdf file.
+
 ### **Requirements**
 
 It is best to have a full TeX distribution on your system. In particular, you should be able to run the **pdflatex** command.
